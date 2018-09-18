@@ -38,4 +38,5 @@ ggplot(ohio_shp, aes(x = TRNOUT_PCT)) +
        x = "Turnout rate of registered voters (%)",
        y = "Density")
 
+ggsave("R/plots/turnout_rate16_histogram.png")
 
