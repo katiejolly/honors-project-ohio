@@ -40,3 +40,4 @@ ggplot(ohio_shp, aes(x = TRNOUT_PCT)) +
 
 ggsave("R/plots/turnout_rate16_histogram.png")
 
+
