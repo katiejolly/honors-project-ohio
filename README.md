@@ -6,6 +6,7 @@ It currently contains folders including:
 
 - R/ (scripts for data analysis)
   - plots/ (plots created from R scripts)
+  - data/ (data created by R scripts and used in R scripts)
 - articles/ (background research and subject-matter readings)
 - shp/ (shapefile of Ohio precincts from (MGGG's github repository)[https://www.github.com/mggg/ohio-precincts])
 
