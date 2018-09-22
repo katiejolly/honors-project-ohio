@@ -4,7 +4,7 @@ library(tigris)
 
 # load all necessary data
 
-madison_geo <- read_csv("R/data/madison_done.csv")
+madison_geo <- read_csv("R/data/geocoded/madison_done.csv")
 
 madison_blocks <- blocks(state = "OH", county = "madison") %>%
   st_as_sf()
@@ -185,8 +185,6 @@ madison_dissolved <- madison_nn5 %>%
 madison_valid <- lwgeom::st_make_valid(madison_dissolved) %>%
   st_transform(4326) %>% # WGS 84
   st_cast("MULTIPOLYGON")
-
-palette <- randomColor(24, luminosity = "bright")
 
 mapview::mapview(madison_valid["PRECINCT"], col.regions = sf.colors(24)) # view the map!!
 

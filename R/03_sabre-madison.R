@@ -4,9 +4,9 @@ library(sabre)
 
 # load the data
 
-madison_valid <- st_read("R/data/madison_valid_approx.shp")
+madison_valid <- st_read("R/data/shp/approx/madison_valid_approx.shp")
 
-madison_base <- st_read("R/data/Madison_Precincts.shp")
+madison_base <- st_read("R/data/shp/base/Madison_Precincts.shp")
 
 
 ####################
