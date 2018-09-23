@@ -24,3 +24,10 @@ mapview::mapview(base_vm, zcol = "rih", legend = TRUE) # view the map!!
 approx_vm <- clark_vmeasure$map2
 
 mapview::mapview(approx_vm, zcol = "rih", legend = TRUE) # view the map!!
+
+
+########### mapcurves method
+
+clark_mapcurves <- mapcurves_calc(clark_base, PRECINCT, clark_approx, PRECINCT)
+
+clark_mapcurves # goodness of fit = 0.88
