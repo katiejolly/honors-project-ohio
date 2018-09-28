@@ -169,7 +169,7 @@ noble_nn1 <- noble %>%
   lookup_precincts_nn() %>%
   classify_nn()
 
-palette <- randomcoloR::randomColor(19)
+palette <- randomcoloR::randomColor(19, luminosity = "light")
 
 ggplot(noble_nn1, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
@@ -177,6 +177,105 @@ ggplot(noble_nn1, aes(fill = PRECINCT_NAME)) +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
-        text = element_text(family = "Century Gothic", color = "#a7aeba"),
-        legend.position = "none")
-  
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
+        legend.position = "none") +
+  ggtitle("Precinct classifications after one iteration in Noble County, OH")
+
+ggsave("R/plots/noble2.png")  
+
+noble_nn2 <- noble_nn1 %>%
+  lookup_precincts_nn() %>%
+  classify_nn()
+
+ggplot(noble_nn2, aes(fill = PRECINCT_NAME)) +
+  geom_sf(color = "gray90") +
+  scale_fill_manual(values = palette) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
+        legend.position = "none") +
+  ggtitle("Precinct classifications after two iterations in Noble County, OH")
+
+ggsave("R/plots/noble3.png")
+
+noble_nn3 <- noble_nn2 %>%
+  lookup_precincts_nn() %>%
+  classify_nn()
+
+ggplot(noble_nn3, aes(fill = PRECINCT_NAME)) +
+  geom_sf(color = "gray90") +
+  scale_fill_manual(values = palette) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
+        legend.position = "none") +
+  ggtitle("Precinct classifications after three iterations in Noble County, OH")
+
+ggsave("R/plots/noble4.png")
+
+noble_nn4 <- noble_nn3 %>%
+  lookup_precincts_nn() %>%
+  classify_nn()
+
+ggplot(noble_nn4, aes(fill = PRECINCT_NAME)) +
+  geom_sf(color = "gray90") +
+  scale_fill_manual(values = palette) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
+        legend.position = "none") +
+  ggtitle("Precinct classifications after four iterations in Noble County, OH")
+
+ggsave("R/plots/noble5.png")
+
+noble_nn5 <- noble_nn4 %>%
+  lookup_precincts_nn() %>%
+  classify_nn()
+
+ggplot(noble_nn5, aes(fill = PRECINCT_NAME)) +
+  geom_sf(color = "gray90") +
+  scale_fill_manual(values = palette) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
+        legend.position = "none") +
+  ggtitle("Precinct classifications after five iterations in Noble County, OH")
+
+ggsave("R/plots/noble6.png")
+
+noble_nn6 <- noble_nn5 %>%
+  lookup_precincts_nn() %>%
+  classify_nn()
+
+ggplot(noble_nn6, aes(fill = PRECINCT_NAME)) +
+  geom_sf(color = "gray90") +
+  scale_fill_manual(values = palette) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
+        legend.position = "none") +
+  ggtitle("Precinct classifications after six iterations in Noble County, OH")
+
+ggsave("R/plots/noble7.png")
+
+noble_nn7 <- noble_nn6 %>%
+  lookup_precincts_nn() %>%
+  classify_nn()
+
+ggplot(noble_nn7, aes(fill = PRECINCT_NAME)) +
+  geom_sf(color = "gray90") +
+  scale_fill_manual(values = palette) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
+        legend.position = "none") +
+  ggtitle("Precinct classifications after seven iterations in Noble County, OH")
+
+ggsave("R/plots/noble8.png")
+
