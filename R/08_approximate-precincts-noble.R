@@ -12,7 +12,58 @@ noble_sf <- noble_blocks %>%
   st_as_sf() %>%
   st_transform(26917)
 
-##############################
+######################## statistics about noble
+
+sum(is.na(noble$BLOCK_GEOID)) / nrow(noble) # 19.24% of addresses were NA
+
+geoid <- noble %>%
+  mutate(BLOCK_GEOID = as.character(BLOCK_GEOID)) %>%
+  group_by(BLOCK_GEOID) %>%
+  summarise(total = n())
+
+geoid %>%
+  drop_na() %>%
+  summarise(mean = mean(total),
+            sd = sd(total),
+            median = median(total)) # summary statistics
+
+geoids_vf <- unique(as.character(noble$BLOCK_GEOID))
+
+geoids_sf <- unique(noble_sf$GEOID10)
+
+diff <- setdiff(geoids_vf, geoids_sf)
+
+diff <- diff[!is.na(diff)]
+
+diff_voters <- noble %>%
+  filter(BLOCK_GEOID %in% diff)
+
+diff_blocks <- diff_voters %>%
+  mutate(BLOCK_GEOID = as.character(BLOCK_GEOID)) %>%
+  group_by(BLOCK_GEOID) %>%
+  count() 
+
+# There are 13 blocks with voters who don't live in Noble County, filter them out
+
+noble2 <- noble %>%
+  filter(! BLOCK_GEOID %in% diff)
+
+nrow(noble) - nrow(noble2) # 45 fewer voters
+
+noble_join <- noble %>%
+  mutate(BLOCK_GEOID = as.character(BLOCK_GEOID)) %>%
+  full_join(noble_sf, by = c("BLOCK_GEOID" = "GEOID10"))
+  
+
+geoids_grouped <- noble_join %>%
+  group_by(BLOCK_GEOID) %>%
+  summarise(voters = n())
+
+map_voters <- noble_sf %>%
+  left_join(geoids_grouped, by = c("GEOID10" = "BLOCK_GEOID"))
+  
+  
+############################## setting up the functions
 
 # functions I'll use later
 
