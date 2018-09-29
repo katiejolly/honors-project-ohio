@@ -10,6 +10,10 @@ output:
 
 If you want to view the slides, click [here](https://docs.google.com/presentation/d/1Evtq363fc1lO8nRt967JJRyVnaJ-E1hl3Cd85iZb4aI/edit?usp=sharing)! 
 
+To just download the shapefile, visit our [GitHub repository](https://github.com/mggg/ohio-precincts/tree/master/shp).
+
+For more general information about "redistricting as a math problem," check out the [Metric Geometry and Gerrymandering Group](https://sites.tufts.edu/gerrymandr/) or the [Voting Rights Data Institute](http://gerrydata.org/).
+
 # Want to reproduce this research?
 
 The technology we used to make the shapefile:

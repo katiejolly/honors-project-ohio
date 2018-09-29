@@ -43,6 +43,8 @@ diff_blocks <- diff_voters %>%
   group_by(BLOCK_GEOID) %>%
   count() 
 
+diff2 <- setdiff(geoids_sf, geoids_vf)
+
 # There are 13 blocks with voters who don't live in Noble County, filter them out
 
 noble2 <- noble %>%
@@ -60,7 +62,20 @@ geoids_grouped <- noble_join %>%
   summarise(voters = n())
 
 map_voters <- noble_sf %>%
-  left_join(geoids_grouped, by = c("GEOID10" = "BLOCK_GEOID"))
+  mutate(no_voters = GEOID10 %in% diff2)
+
+ggplot(map_voters) +
+  geom_sf(aes(fill = no_voters)) +
+  scale_fill_manual(values = c("#bec9d8", "#f2f07d"),
+                    name = "Valid addresses",
+                    labels = c("True", "False")) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16)) +
+  ggtitle("Blocks with no valid addresses")
+
+ggsave("R/plots/valid_addresses.png")
   
   
 ############################## setting up the functions
@@ -220,17 +235,19 @@ noble_nn1 <- noble %>%
   lookup_precincts_nn() %>%
   classify_nn()
 
-palette <- randomcoloR::randomColor(19, luminosity = "light")
+#palette <- randomcoloR::randomColor(19, luminosity = "light")
+
+palette <- c("#a1fccb", "#a6f9a2", "b2bbf7", "#f2ffad", "#90f26f", "#f8c4ff", "#81e2ef", "#8cf7f3", "#f4ca75", "#d0b4f7", "#96f470", "#97b2ed", "#ddff99", "#ffd884", "#b18cf2", "#81c7e8", "#a2f77b", "#b3ed7d", "#83f7a9")
 
 ggplot(noble_nn1, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
-  scale_fill_manual(values = palette) +
+  scale_fill_manual(values = palette, na.value = "black") +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
         text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
         legend.position = "none") +
-  ggtitle("Precinct classifications after one iteration in Noble County, OH")
+  ggtitle("Precinct classifications after one iteration \nin Noble County, OH")
 
 ggsave("R/plots/noble2.png")  
 
@@ -240,13 +257,13 @@ noble_nn2 <- noble_nn1 %>%
 
 ggplot(noble_nn2, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
-  scale_fill_manual(values = palette) +
+  scale_fill_manual(values = palette, na.value = "black") +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
         text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
         legend.position = "none") +
-  ggtitle("Precinct classifications after two iterations in Noble County, OH")
+  ggtitle("Precinct classifications after two iterations \nin Noble County, OH")
 
 ggsave("R/plots/noble3.png")
 
@@ -256,13 +273,13 @@ noble_nn3 <- noble_nn2 %>%
 
 ggplot(noble_nn3, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
-  scale_fill_manual(values = palette) +
+  scale_fill_manual(values = palette, na.value = "black") +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
         text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
         legend.position = "none") +
-  ggtitle("Precinct classifications after three iterations in Noble County, OH")
+  ggtitle("Precinct classifications after three iterations \nin Noble County, OH")
 
 ggsave("R/plots/noble4.png")
 
@@ -272,13 +289,13 @@ noble_nn4 <- noble_nn3 %>%
 
 ggplot(noble_nn4, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
-  scale_fill_manual(values = palette) +
+  scale_fill_manual(values = palette, na.value = "black") +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
         text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
         legend.position = "none") +
-  ggtitle("Precinct classifications after four iterations in Noble County, OH")
+  ggtitle("Precinct classifications after four iterations \nin Noble County, OH")
 
 ggsave("R/plots/noble5.png")
 
@@ -288,13 +305,13 @@ noble_nn5 <- noble_nn4 %>%
 
 ggplot(noble_nn5, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
-  scale_fill_manual(values = palette) +
+  scale_fill_manual(values = palette, na.value = "black") +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
         text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
         legend.position = "none") +
-  ggtitle("Precinct classifications after five iterations in Noble County, OH")
+  ggtitle("Precinct classifications after five iterations \nin Noble County, OH")
 
 ggsave("R/plots/noble6.png")
 
@@ -304,13 +321,14 @@ noble_nn6 <- noble_nn5 %>%
 
 ggplot(noble_nn6, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
-  scale_fill_manual(values = palette) +
+  scale_fill_manual(values = palette, na.value = "black") +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
         text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
         legend.position = "none") +
-  ggtitle("Precinct classifications after six iterations in Noble County, OH")
+  ggtitle("Precinct classifications after six iterations \nin Noble County, OH")
+
 
 ggsave("R/plots/noble7.png")
 
@@ -320,13 +338,14 @@ noble_nn7 <- noble_nn6 %>%
 
 ggplot(noble_nn7, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
-  scale_fill_manual(values = palette) +
+  scale_fill_manual(values = palette, na.value = "black") +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
         text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
         legend.position = "none") +
-  ggtitle("Precinct classifications after seven iterations in Noble County, OH")
+  ggtitle("Precinct classifications after seven iterations \nin Noble County, OH")
 
 ggsave("R/plots/noble8.png")
 
+mapview::mapview(noble_nn7, zcol = "PRECINCT_NAME")

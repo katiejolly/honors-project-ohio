@@ -20,6 +20,20 @@ base_vm <- clark_vmeasure$map1
 
 mapview::mapview(base_vm, zcol = "rih", legend = TRUE) # view the map!!
 
+ggplot(base_vm) +
+  geom_sf(aes(fill = rih), color = "gray90") +
+  scale_fill_distiller(palette = "YlGnBu", guide = "colourbar", labels = c("0.3 (more)", "0.2", "0.1 (less)"), breaks = c(0.1, 0.2, 0.3)) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 20),
+        plot.title = element_text(face="bold"),
+        plot.subtitle = element_text(size = 14),
+        legend.title = element_text(size = 16)) +
+  guides(fill = guide_legend(title = "Regional inhomogeneity \nin the base layer", title.position = "top")) +
+  ggtitle("Regional inhomogeneity in Clark County \nmeasured by the information-theoretical V-measure") +
+  labs(subtitle = "\nComparing the base map to the approximated map")
+
 
 approx_vm <- clark_vmeasure$map2
 
