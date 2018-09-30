@@ -22,7 +22,7 @@ mapview::mapview(base_vm, zcol = "rih", legend = TRUE) # view the map!!
 
 ggplot(base_vm) +
   geom_sf(aes(fill = rih), color = "gray90") +
-  scale_fill_distiller(palette = "YlGnBu", guide = "colourbar", labels = c("0.3 (more)", "0.2", "0.1 (less)"), breaks = c(0.1, 0.2, 0.3)) +
+  scale_fill_distiller(palette = "YlGnBu", guide = "colourbar", breaks = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.28), labels = c("", "0.05 (less)",  "", "","", "", "0.3 (more)")) +
   theme_minimal() +
   theme(panel.grid.major = element_line(color = "transparent"),
         axis.text = element_blank(),
@@ -30,15 +30,54 @@ ggplot(base_vm) +
         plot.title = element_text(face="bold"),
         plot.subtitle = element_text(size = 14),
         legend.title = element_text(size = 16)) +
-  guides(fill = guide_legend(title = "Regional inhomogeneity \nin the base layer", title.position = "top")) +
+  guides(fill = guide_colorbar(title = "Regional inhomogeneity \nin the base layer\n", barheight = 10, ticks = FALSE, barwidth = 1.5)) +
   ggtitle("Regional inhomogeneity in Clark County \nmeasured by the information-theoretical V-measure") +
   labs(subtitle = "\nComparing the base map to the approximated map")
 
+ggplot(base_vm) +
+  geom_histogram(aes(x = rih, fill = rih), color = "white", fill = "#A7AEC3", binwidth = 0.01) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 20),
+        plot.title = element_text(face="bold"),
+        plot.subtitle = element_text(size = 14),
+        legend.title = element_text(size = 16)) +
+  labs(title = "RIH Distribution",
+       subtitle = "Base map\n\n",
+       x = "regional inhomogeneity",
+       y = "Precincts") +
+  ylim(0, 15)
 
 approx_vm <- clark_vmeasure$map2
 
 mapview::mapview(approx_vm, zcol = "rih", legend = TRUE) # view the map!!
 
+ggplot(approx_vm) +
+  geom_sf(aes(fill = rih), color = "gray90") +
+  scale_fill_distiller(palette = "YlGnBu", guide = "colourbar", breaks = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.28), labels = c("", "0.05 (less)",  "", "","", "0.3 (more)", "")) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 20),
+        plot.title = element_text(face="bold"),
+        plot.subtitle = element_text(size = 14),
+        legend.title = element_text(size = 16)) +
+  guides(fill = guide_colorbar(title = "Regional inhomogeneity \nin the approximated layer\n", barheight = 10, ticks = FALSE, barwidth = 1.5)) +
+  ggtitle("Regional inhomogeneity in Clark County \nmeasured by the information-theoretical V-measure") +
+  labs(subtitle = "\nComparing the approximated map to the base map") 
+
+ggplot(approx_vm) +
+  geom_histogram(aes(x = rih, fill = rih), color = "white", fill = "#A7AEC3", binwidth = 0.01) +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 20),
+        plot.title = element_text(face="bold"),
+        plot.subtitle = element_text(size = 14),
+        legend.title = element_text(size = 16)) +
+  labs(title = "RIH Distribution",
+       subtitle = "Approximated map\n\n",
+       x = "regional inhomogeneity",
+       y = "Precincts")
 
 ########### mapcurves method
 
