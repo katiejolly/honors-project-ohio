@@ -1,0 +1,76 @@
+---
+title: "Extra resources on gerrymandering and precincts"
+author: "Katie Jolly"
+date: "`r paste0('Last Updated ', format(Sys.time(), '%d %B %Y'))`"
+output: 
+  prettydoc::html_pretty:
+      theme: hpstr
+      highlight: github
+---
+
+If you want to view the slides, click [here](https://docs.google.com/presentation/d/1Evtq363fc1lO8nRt967JJRyVnaJ-E1hl3Cd85iZb4aI/edit?usp=sharing)! 
+
+To just download the shapefile, visit our [GitHub repository](https://github.com/mggg/ohio-precincts/tree/master/shp).
+
+For more general information about "redistricting as a math problem," check out the [Metric Geometry and Gerrymandering Group](https://sites.tufts.edu/gerrymandr/) or the [Voting Rights Data Institute](http://gerrydata.org/).
+
+# Want to reproduce this research?
+
+The technology we used to make the shapefile:
+
+* [QGIS](https://www.qgis.org/en/site/): A Free and Open Source Geographic Information System
+* [RStudio](https://www.rstudio.com/): An Open Source IDE for R
+* [R](https://www.r-project.org/): The R Project for Statistical Computing
+* [Tidyverse](https://www.tidyverse.org/): Opinionated Collection of R Packages Designed for Data Science
+* [tigris](https://github.com/walkerke/tigris): Download and Use Census TIGER/Line Shapefiles in R
+* [sabre](https://github.com/Nowosad/sabre): Spatial Association Between REgionalizations  
+* [sf](https://github.com/r-spatial/sf): Simple Features for R
+
+The images of precinct maps we digitized:
+
+* [Contact me](katiejolly6@gmail.com) if you're interested in getting the images. They aren't publicly available for this project quite yet. 
+
+Articles that helped us with learning how to use all this technology for digitizing:
+
+* [Georeferencing Topo Sheets and Scanned Maps in QGIS](https://www.qgistutorials.com/en/docs/georeferencing_basics.html)
+* [Digitizing in QGIS](https://www.qgistutorials.com/en/docs/digitizing_basics.html)
+* [Vermont Election Results at the Precinct Level…Can We Map Them? (Yes, We Can…Now!)](https://medium.com/vermont-center-for-geographic-information/vermont-election-results-at-the-precinct-level-can-we-map-them-yes-we-can-now-ddf5d861232)
+* [sabre: Or How to Compare Two Maps](https://nowosad.github.io/post/sabre-bp/) by Jakub Nowosad
+
+* [Spatial Association Between Regionalizations using the information-theoretical V-measure](https://eartharxiv.org/rcjh7/) by Nowosad and Stepinski
+
+The GitHub repositories where we have reproducible scripts and notes:
+
+* [katiejolly/honors-project-ohio](https://github.com/katiejolly/honors-project-ohio): my respository for continued research 
+* [mggg/ohio-precincts](https://github.com/mggg/honors-project-ohio): main repository for the Ohio shapefile
+
+# Want to learn more about why precinct boundaries are important?
+
+Articles about the Voting Rights Data Institute (or related to their work):
+
+* [How to Make Voting Fair](https://now.tufts.edu/articles/how-make-voting-fair) in Tufts Now
+
+* [Can Open Data Save Redistricting Reform?](http://prospect.org/authors/sam-wang-ben-williams-john-oneill) in The American Prospect
+
+
+Other resources about redistricting:
+
+* [An Open Letter to the Open Data Community](https://datasmart.ash.harvard.edu/news/article/an-open-letter-to-the-open-data-community-988)
+
+* [NSGIC: Geo Enabled Elections](https://www.nsgic.org/geo-enabled-elections)
+
+* [Open Precinct Data](https://medium.com/planscore/open-precinct-data-eec479287715) by Michael Migurski
+
+* [A Citizen's Guide to Redistricting](https://www.brennancenter.org/sites/default/files/legacy/Democracy/CitizensGuidetoRedistricting_2010.pdf) by Justin Levitt
+
+* [Expressive Harms, "Bizarre Districts," and Voting Rights: Evaluating Election-District](https://sites.tufts.edu/vrdi/files/2018/06/bizarre-districts.pdf) by Pildes and Niemi
+
+* [Representation without Party: Lessons from State Constitutional Attempts to Control Gerrymandering](https://sites.tufts.edu/vrdi/files/2018/06/Gardner-rep-without-party.pdf) by James Gardner
+
+* [One Person, One Vote and the Possibility of
+Political Community](https://sites.tufts.edu/vrdi/files/2018/06/Gardner-1P1V-community.pdf) by James Gardner
+
+* [A Geographic Explanation for Partisan Representation:
+How Residential Patterns of Partisans Shape Electoral Outcomes](http://www-personal.umich.edu/~dcott/pdfs/Chapter_1.pdf) by David Cottrell
+
+* [Study of voting systems for Santa Clara, CA](https://sites.tufts.edu/gerrymandr/files/2015/11/MGGG-SantaClara.pdf) by the Metric Geometry and Gerrymandering Group

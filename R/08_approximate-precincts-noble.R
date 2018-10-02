@@ -76,6 +76,21 @@ ggplot(map_voters) +
   ggtitle("Blocks with no valid addresses")
 
 ggsave("R/plots/valid_addresses.png")
+
+map_voters %>% 
+  group_by(no_voters) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = no_voters, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs(x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Has valid addresses (classified)", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1700)
   
   
 ############################## setting up the functions
@@ -226,6 +241,34 @@ noble %>%
 
 ggsave("R/plots/noble1.png")
 
+ggplot(noble_nn, aes(fill = PRECINCT_NAME)) +
+  geom_sf(color = "gray90") +
+  scale_fill_manual(values = palette, na.value = "black") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        axis.text = element_blank(),
+        text = element_text(family = "Century Gothic", color = "#a7aeba", size = 16),
+        legend.position = "none") +
+  ggtitle("Precinct classifications at start\nin Noble County, OH")
+
+noble_nn %>% 
+  mutate(is_na = is.na(PRECINCT_NAME)) %>%
+  group_by(is_na) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = is_na, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs("Number of classified and unclassified blocks",
+       x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Classified", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1700)
+
+ggsave("R/plots/bar0.png")
 
 
 noble_nn1 <- noble %>%
@@ -235,11 +278,10 @@ noble_nn1 <- noble %>%
   lookup_precincts_nn() %>%
   classify_nn()
 
-#palette <- randomcoloR::randomColor(19, luminosity = "light")
+palette <- randomcoloR::randomColor(19, luminosity = "light")
 
-palette <- c("#a1fccb", "#a6f9a2", "b2bbf7", "#f2ffad", "#90f26f", "#f8c4ff", "#81e2ef", "#8cf7f3", "#f4ca75", "#d0b4f7", "#96f470", "#97b2ed", "#ddff99", "#ffd884", "#b18cf2", "#81c7e8", "#a2f77b", "#b3ed7d", "#83f7a9")
 
-ggplot(noble_nn1, aes(fill = PRECINCT_NAME)) +
+g1 <- ggplot(noble_nn1, aes(fill = PRECINCT_NAME)) +
   geom_sf(color = "gray90") +
   scale_fill_manual(values = palette, na.value = "black") +
   theme_minimal() +
@@ -249,7 +291,30 @@ ggplot(noble_nn1, aes(fill = PRECINCT_NAME)) +
         legend.position = "none") +
   ggtitle("Precinct classifications after one iteration \nin Noble County, OH")
 
+g1 
+
 ggsave("R/plots/noble2.png")  
+
+
+noble_nn1 %>% 
+  mutate(is_na = is.na(PRECINCT_NAME)) %>%
+  group_by(is_na) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = is_na, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs("Number of classified and unclassified blocks",
+       x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Classified", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1700)
+
+ggsave("R/plots/bar1.png")
+  
 
 noble_nn2 <- noble_nn1 %>%
   lookup_precincts_nn() %>%
@@ -265,7 +330,27 @@ ggplot(noble_nn2, aes(fill = PRECINCT_NAME)) +
         legend.position = "none") +
   ggtitle("Precinct classifications after two iterations \nin Noble County, OH")
 
+
 ggsave("R/plots/noble3.png")
+
+noble_nn2 %>% 
+  mutate(is_na = is.na(PRECINCT_NAME)) %>%
+  group_by(is_na) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = is_na, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs("Number of classified and unclassified blocks",
+       x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Classified", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1800)
+
+ggsave("R/plots/bar2.png")
 
 noble_nn3 <- noble_nn2 %>%
   lookup_precincts_nn() %>%
@@ -283,6 +368,25 @@ ggplot(noble_nn3, aes(fill = PRECINCT_NAME)) +
 
 ggsave("R/plots/noble4.png")
 
+noble_nn3 %>% 
+  mutate(is_na = is.na(PRECINCT_NAME)) %>%
+  group_by(is_na) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = is_na, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs("Number of classified and unclassified blocks",
+       x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Classified", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1800)
+
+ggsave("R/plots/bar3.png")
+
 noble_nn4 <- noble_nn3 %>%
   lookup_precincts_nn() %>%
   classify_nn()
@@ -299,6 +403,25 @@ ggplot(noble_nn4, aes(fill = PRECINCT_NAME)) +
 
 ggsave("R/plots/noble5.png")
 
+noble_nn4 %>% 
+  mutate(is_na = is.na(PRECINCT_NAME)) %>%
+  group_by(is_na) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = is_na, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs("Number of classified and unclassified blocks",
+       x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Classified", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1900)
+
+ggsave("R/plots/bar4.png")
+
 noble_nn5 <- noble_nn4 %>%
   lookup_precincts_nn() %>%
   classify_nn()
@@ -314,6 +437,25 @@ ggplot(noble_nn5, aes(fill = PRECINCT_NAME)) +
   ggtitle("Precinct classifications after five iterations \nin Noble County, OH")
 
 ggsave("R/plots/noble6.png")
+
+noble_nn5 %>% 
+  mutate(is_na = is.na(PRECINCT_NAME)) %>%
+  group_by(is_na) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = is_na, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs("Number of classified and unclassified blocks",
+       x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Classified", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1900)
+
+ggsave("R/plots/bar5.png")
 
 noble_nn6 <- noble_nn5 %>%
   lookup_precincts_nn() %>%
@@ -332,6 +474,25 @@ ggplot(noble_nn6, aes(fill = PRECINCT_NAME)) +
 
 ggsave("R/plots/noble7.png")
 
+noble_nn6 %>% 
+  mutate(is_na = is.na(PRECINCT_NAME)) %>%
+  group_by(is_na) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = is_na, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs("Number of classified and unclassified blocks",
+       x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Classified", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1900)
+
+ggsave("R/plots/bar6.png")
+
 noble_nn7 <- noble_nn6 %>%
   lookup_precincts_nn() %>%
   classify_nn()
@@ -347,5 +508,24 @@ ggplot(noble_nn7, aes(fill = PRECINCT_NAME)) +
   ggtitle("Precinct classifications after seven iterations \nin Noble County, OH")
 
 ggsave("R/plots/noble8.png")
+
+noble_nn7 %>% 
+  mutate(is_na = is.na(PRECINCT_NAME)) %>%
+  group_by(is_na) %>%
+  summarise(total = n()) %>%
+  ggplot(aes(x = is_na, y = total)) +
+  geom_col(fill = "#6f7072") +
+  theme_minimal() +
+  theme(panel.grid.major = element_line(color = "transparent"),
+        text = element_text(family = "Century Gothic", color = "#6f7072", size = 16),
+        legend.position = "none") +
+  labs("Number of classified and unclassified blocks",
+       x = "",
+       y = "Number of blocks") +
+  scale_x_discrete(labels = c("Classified", "Unclassified")) +
+  geom_text(aes(label=paste0(total, " blocks")), vjust= - 2, family = "Century Gothic", size = 5) +
+  ylim(0, 1700)
+
+ggsave("R/plots/bar7.png")
 
 mapview::mapview(noble_nn7, zcol = "PRECINCT_NAME")
