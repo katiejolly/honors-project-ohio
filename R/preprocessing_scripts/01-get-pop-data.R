@@ -18,3 +18,12 @@ totalpop_sf <- reduce(
 )
 
 write_csv(totalpop_sf, "R/data/totalpop_2010_blocks.csv")
+
+blocks_oh_sf <- blocks(state = "ohio", year = 2010)
+
+blocks_oh_sf <- blocks_oh_sf %>%
+  st_as_sf() %>%
+  left_join(totalpop_sf, by = c("GEOID10" = "GEOID")) %>%
+  rename(TOTAL_POP = value)
+
+st_write(blocks_oh_sf, "R/data/shp/ohio_block_pop.gpkg")
