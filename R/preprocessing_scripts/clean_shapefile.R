@@ -20,5 +20,5 @@ sum(st_is_valid(precincts_valid) == FALSE)
 precincts_collection <- precincts_valid %>%
   st_cast("GEOMETRYCOLLECTION")
 
-# st_write(precincts_valid, "shp/precincts_results_val.shp")
+st_write(precincts_collection, "shp/precincts_results_val.gpkg")
 
