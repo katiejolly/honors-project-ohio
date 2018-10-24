@@ -1,0 +1,7 @@
+## Ideas for finding sliver polygons
+
+One issue we've run into with the Ohio shapefile is that we have some sliver polygons between precincts. This means that there is a tiny bit of area that isn't included in the full geometry of Ohio. This is particularly problematic for us because those precincts won't be classified as adjacent when we run the MCMC algorithm to generate an ensemble of possible districting plans.
+
+There does not seem to be one standard way to fix this. This document includes some of our brainstorming for how to deal with this problem in the context of this particular project.
+
+### Method 1: sf::st_difference()
