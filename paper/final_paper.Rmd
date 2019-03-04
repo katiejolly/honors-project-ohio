@@ -1,0 +1,55 @@
+---
+date: "February 27, 2019"
+output: 
+  html_document:
+    css: styles.css
+    theme: "cosmo"
+---
+
+# Creating an open-source precinct shapefile for Ohio {.tabset}
+
+
+This site is a culmination and explanation of the work that went into this project. On the first page you will find a brief overview of the different parts of the project. On subsequent pages, each part will be explained in more detail with images and examples.
+
+## Overview
+
+
+## Motivation <br>for the project
+
+### Current status of voting rights in America
+
+
+### Why are precincts important for voting rights?
+
+## Collecting publicly <br> available data 
+
+### Setting up the data collection
+
+### Digitizing maps
+
+<img src="images/digitizing_collage.png" alt="Collage of pages from our book on digitizing. Includes information about projection, adding images, checking data, and others." width="50%" height = "50%" align="center">
+
+
+
+
+## Approximating<br>precinct maps
+
+<br> <br>
+
+Most of the counties we worked with in Ohio had either a shapefile available or pdf maps that we could digitize. However, in about 10 of the counties, there were neither shapefiles nor maps available. In order to have statewide data we still need this information. We thought about different possible ways to approximate it in a way that still gives reasonable results. The general approach we settled on was to use the [publicly available voter file](https://www6.sos.state.oh.us/ords/f?p=111:1) to find the locations of currently registered voters and then triangulate plausible precinct boundaries using a nearest neighbor algorithm. The details of this algorithm are below. 
+
+### Data
+
+The first consideration is the readily available raw data that is available to researchers and community members. Calling counties for more data is an option, though a time consuming and tedious process. The ultimate goal is to make phone calls less necessary for obtaining data. We use the tigris (**cite!!**) package to access the census block shapefiles published by the Census Bureau (**cite!!**) as the basic geographic building block of precincts.
+
+
+
+### What's the "best guess?"
+
+### Evaluating the "guess"
+
+### A reproducible process
+
+If you would like to reproduce these maps, or produce them for your own work, we have compiled this algorithm into an R package. You can install it from the [GitHub repository](https://github.com/ykelly/approxprecincts) as it is not available on CRAN. 
+
+## What can we <br>do with this?
